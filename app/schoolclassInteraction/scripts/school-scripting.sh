@@ -82,6 +82,17 @@ start_breathers() {
     breathers "start"
 }
 
+go_home_withtable_helper() {
+    # This is with the arms close to the legs
+    # echo "ctpq time $1 off 0 pos (-6.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    # echo "ctpq time $1 off 0 pos (-6.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
+    # This is with the arms over the table
+    go_home_withtable_helperR $1
+    go_home_withtable_helperL $1
+    # echo "ctpq time 1.0 off 0 pos (0.0 0.0 10.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    go_home_helperH $1
+}
+
 go_home_helper() {
     # This is with the arms close to the legs
     # echo "ctpq time $1 off 0 pos (-6.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
@@ -99,10 +110,22 @@ go_home_helperL()
     echo "ctpq time $1 off 0 pos (-6.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
 }
 
+go_home_withtable_helperL()
+{
+    # echo "ctpq time $1 off 0 pos (-30.0 36.0 0.0 60.0 0.0 0.0 0.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time $1 off 0 pos (-6.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
+}
+
 go_home_helperR()
 {
     # echo "ctpq time $1 off 0 pos (-30.0 36.0 0.0 60.0 0.0 0.0 0.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
     echo "ctpq time $1 off 0 pos (-6.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+}
+
+go_home_withtable_helperR()
+{
+    # echo "ctpq time $1 off 0 pos (-30.0 36.0 0.0 60.0 0.0 0.0 0.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time $1 off 0 pos (-6.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
 }
 
 go_home_helperH()
@@ -115,6 +138,13 @@ go_homeH() {
     go_home_helperH 1.5
     sleep 2.0
     head "start"
+}
+
+go_home_withtable(){
+    breathers "stop"
+    go_home_withtable_helper 2.0
+    sleep 2.5
+    breathers "start"
 }
 
 go_home() {
@@ -358,10 +388,86 @@ angry() {
 # HIGH LEVEL FUNCTION  1:                                                             #
 #######################################################################################
 
-reachObjectTop(){
-    
-
+reachA() {
+    echo "reach A"
+    echo "-0.35 -0.02 0.09" | yarp write ... /iKinGazeCtrl/xd:i
+    sleep 1.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
 }
+
+reachA_noHead() {
+    echo "reachA_noHead"
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
+reachB() {
+    echo "reach B"
+    echo "-0.35 -0.02 0.09" | yarp write ... /iKinGazeCtrl/xd:i
+    sleep 1.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
+reachB_noHead() {
+    echo "reachB_noHead"
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
+reachC() {
+    echo "reach C"
+    echo "-0.35 -0.02 0.09" | yarp write ... /iKinGazeCtrl/xd:i
+    sleep 1.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
+reachC_noHead() {
+    echo "reachC_noHead"
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
+reachD() {
+    echo "reach D"
+    echo "-0.35 -0.20 0.02" | yarp write ... /iKinGazeCtrl/xd:i
+    sleep 1.0
+    echo "-0.30 -0.20 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.20 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.20 0.02 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
+reachD_noHead() {
+    echo "reachD_noHead"
+    echo "-0.30 -0.20 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.30 -0.20 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    sleep 2.0
+    echo "-0.35 -0.20 0.02 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+}
+
 
 #######################################################################################
 # RUBRICA  1:                                                                         #
@@ -1241,12 +1347,61 @@ reachObjectTop(){
 # SCHOOL PROCEDURES
 #######################################################################################
 
-    reachASequenceNoHead(){
-        go_home
-        sleep 1.0
-        go home
+    reachASequence_noHead() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachA_noHead
+        go_home_withtable
+    }
+    
+    reachASequence() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachA
+        sleep 3.0 && go_home_withtable
     }
 
+    reachBSequence_noHead() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachB_noHead
+        go_home_withtable
+    }
+    
+    reachBSequence() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachB
+        sleep 3.0 && go_home_withtable
+    }
+
+    reachCSequence_noHead() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachC_noHead
+        go_home_withtable
+    }
+    
+    reachCSequence() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachC
+        sleep 3.0 && go_home_withtable
+    }
+
+    reachDSequence_noHead() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachD_noHead
+        go_home_withtable
+    }
+    
+    reachDSequence() {
+        go_home_withtable
+        sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
+        sleep 3.0 && reachD
+        sleep 3.0 && go_home_withtable
+    }
 
 #######################################################################################
 # "MAIN" FUNCTION:                                                                    #
