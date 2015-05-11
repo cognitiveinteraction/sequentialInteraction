@@ -1,4 +1,4 @@
-touch #!/bin/bash
+#!/bin/bash
 #######################################################################################
 # FLATWOKEN ICON THEME CONFIGURATION SCRIPT
 # Copyright: (C) 2014 FlatWoken icons
@@ -113,7 +113,7 @@ go_home_helperL()
 go_home_withtable_helperL()
 {
     # echo "ctpq time $1 off 0 pos (-30.0 36.0 0.0 60.0 0.0 0.0 0.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
-    echo "ctpq time $1 off 0 pos (-6.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time $1 off 0 pos (-26.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
 }
 
 go_home_helperR()
@@ -125,7 +125,7 @@ go_home_helperR()
 go_home_withtable_helperR()
 {
     # echo "ctpq time $1 off 0 pos (-30.0 36.0 0.0 60.0 0.0 0.0 0.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
-    echo "ctpq time $1 off 0 pos (-6.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time $1 off 0 pos (-26.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
 }
 
 go_home_helperH()
@@ -294,7 +294,7 @@ sad() {
 }
 
 ciao() {
-    speak "Ciao! Mi chiamo aicab."
+    speak "Ciao! Mi chiamo aicccab."
 }
 
 vai_nello_spazio() {
@@ -383,6 +383,78 @@ angry() {
     echo "set all ang" | yarp rpc /icub/face/emotions/in
 }
 
+
+
+#######################################################################################
+# EXERCISE @ SCHOOL:                                                                  #
+#######################################################################################
+
+waving() {
+    echo "ctpq time 0.5 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0  25.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 0.5 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 -11.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 0.5 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0  25.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 0.5 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 -11.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+}
+
+introduceExercise() {
+    speak "Oggi faremo un bel lavoretto insieme"
+    sleep 2.0
+}
+
+introduceExercise_beeping() {
+    speak "mih! mih mih. mih mih? mih!"
+    sleep 2.0
+}
+
+explainExercise() {
+    speak "vi insegnero a fare una barchetta di carta con questo cartoncino colorato"
+    sleep 2.0
+}
+
+explainExercise_beeping() {
+    speak " mih. mih! mih mih! mih, mih; mih! mih mih? mih!"
+    sleep 2.0
+}
+
+reachRisma() {
+    echo "reach Risma"
+    echo "-0.30 -0.17 0.0" | yarp write ... /iKinGazeCtrl/xd:i
+    sleep 1.0
+    echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -20.0 28.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/left_arm/rpc
+    #echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    #sleep 2.0
+    #echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    #sleep 2.0
+    #echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i   
+}
+
+tiltHead() {
+    echo "ctpq time 1.5 off 0 pos (0.0 15.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    echo "ctpq time 1.5 off 0 pos (0.0 0.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    #echo "ctpq time 0.5 off 0 pos (0.0 5.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    #echo "ctpq time 0.5 off 0 pos (0.0 0.0  -5.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    #echo "ctpq time 0.5 off 0 pos (0.0 0.0   5.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+}
+
+blockNeck() {
+    echo "bind pitch 0 0" | yarp rpc /iKinGazeCtrl/rpc
+    echo "bind yaw 0 0" | yarp rpc /iKinGazeCtrl/rpc
+    echo "bind roll 0 0" | yarp rpc /iKinGazeCtrl/rpc
+}
+
+releaseNeck() {
+    echo "clear pitch" | yarp rpc /iKinGazeCtrl/rpc
+    echo "clear yaw" | yarp rpc /iKinGazeCtrl/rpc
+    echo "clear roll" | yarp rpc /iKinGazeCtrl/rpc
+}
+
+getReadyToPlay() {
+    speak "Pronti? Seguite le istruzioni e.....vediamo chi fa meglio"
+}
+
+getReadyToPlay_beeping() {
+    speak "mih mih; mih mih! mih, mih? mih! mih"
+}
 
 #######################################################################################
 # HIGH LEVEL FUNCTION  1:                                                             #
@@ -1401,6 +1473,74 @@ reachD_noHead() {
         sleep 2.0 && speak "ragazzi.... prendo un nuovo giocattolo"
         sleep 3.0 && reachD
         sleep 3.0 && go_home_withtable
+    }
+
+    exercise() {
+        go_home_withtable
+        sleep 3.0 && waving
+        sleep 1.0 && ciao
+        sleep 1.0 && smile
+        sleep 1.0 && introduceExercise
+        sleep 1.0 && go_home_withtable
+        sleep 1.0 && tiltHead
+        sleep 3.0 && smile
+        sleep 3.0 && explainExercise
+        sleep 0.5 && reachRisma       
+        sleep 3.0 && go_home_withtable
+        echo "[info] smile"
+        smile
+        sleep 3.0 && getReadyToPlay
+        sleep 6.0 && smile
+    }
+
+    exercise_onlyEyes() {
+        go_home_withtable
+        blockNeck
+        sleep 3.0 && waving
+        sleep 1.0 && ciao
+        sleep 1.0 && smile
+        sleep 1.0 && introduceExercise
+        sleep 1.0 && go_home_withtable
+        sleep 3.0 && smile
+        sleep 3.0 && explainExercise
+        sleep 0.5 && reachRisma       
+        sleep 3.0 && go_home_withtable
+        echo "[info] smile"
+        smile
+        sleep 3.0 && getReadyToPlay
+        sleep 6.0 && smile
+        releaseNeck
+    }
+
+    exercise_beeping() {
+        go_home_withtable
+        sleep 3.0 && waving
+        sleep 1.0 && ciao_beeping
+        sleep 1.0 && smile
+        sleep 1.0 && introduceExercise_beeping
+        sleep 1.0 && tiltHead
+        sleep 3.0 && smile
+        sleep 3.0 && explainExercise_beeping
+        sleep 0.5 && reachRisma       
+        sleep 3.0 && go_home_withtable
+        echo "[info] smile"
+        smile
+        sleep 3.0 && getReadyToPlay_beeping
+        sleep 6.0 && smile
+    }
+
+    exercise_noMov() {
+        go_home_withtable
+        sleep 1.0 && ciao
+        sleep 1.0 && smile
+        sleep 1.0 && introduceExercise
+        sleep 3.0 && smile
+        sleep 3.0 && explainExercise
+        sleep 3.0 && go_home_withtable
+        echo "[info] smile"
+        smile
+        sleep 3.0 && getReadyToPlay
+        sleep 6.0 && smile
     }
 
 #######################################################################################
