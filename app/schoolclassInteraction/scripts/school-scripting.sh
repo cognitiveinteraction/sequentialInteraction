@@ -91,6 +91,7 @@ go_home_withtable_helper() {
     go_home_withtable_helperL $1
     # echo "ctpq time 1.0 off 0 pos (0.0 0.0 10.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
     go_home_helperH $1
+    go_home_helperT $1	
 }
 
 go_home_helper() {
@@ -130,7 +131,12 @@ go_home_withtable_helperR()
 
 go_home_helperH()
 {
-    echo "ctpq time $1 off 0 pos (0.0 0.0 5.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    echo "ctpq time $1 off 0 pos (-5.0 0.0 0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+}
+
+go_home_helperT()
+{
+    echo "ctpq time $1 off 0 pos (-3.0 0.0 0.0)" | yarp rpc /ctpservice/torso/rpc
 }
 
 go_homeH() {
@@ -143,6 +149,13 @@ go_homeH() {
 go_home_withtable(){
     breathers "stop"
     go_home_withtable_helper 2.0
+    sleep 2.5
+    breathers "start"
+}
+
+go_reachingstart_withtable(){
+    breathers "stop"
+    go_reachingstart_withtable_helper 2.0
     sleep 2.5
     breathers "start"
 }
@@ -396,6 +409,16 @@ waving() {
     echo "ctpq time 0.5 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 -11.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
 }
 
+waving_robotic() {
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0  25.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 -11.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0  25.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc 	
+    echo "ctpq time 1.0 off 0 pos (-60.0 44.0 -2.0 96.0 53.0 -17.0 -11.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0)" | yarp rpc /ctpservice/left_arm/rpc
+}
+
 introduceExercise() {
     speak "Oggi faremo un bel lavoretto insieme"
     sleep 2.0
@@ -417,10 +440,12 @@ explainExercise_beeping() {
 }
 
 reachRisma() {
+    # from resting position
+    # echo "ctpq time $1 off 0 pos (-6.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/left_arm/rpc
     echo "reach Risma"
-    echo "-0.30 -0.17 0.0" | yarp write ... /iKinGazeCtrl/xd:i
+    echo "-0.30 0.17 0.0" | yarp write ... /iKinGazeCtrl/xd:i
     sleep 1.0
-    echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -20.0 28.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -20.0 28.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
     #echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
     #sleep 2.0
     #echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
@@ -428,8 +453,42 @@ reachRisma() {
     #echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i   
 }
 
+
+reachRisma_robotic() {
+    #echo "-0.30 0.17 0.0" | yarp write ... /iKinGazeCtrl/xd:i
+    echo "ctpq time 1.5 off 0 pos (-20.0 0.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    echo "ctpq time 1.5 off 0 pos (-20.0 0.0 -10.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    echo "ctpq time 1.5 off 0 pos (-20.0 0.0 -10.0 -14.0 0.0 15.0)" | yarp rpc /ctpservice/head/rpc		
+    sleep 1.0
+    echo "ctpq time 1.0 off 0 pos (-26.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-34.0 50.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-34.0 63.0 25.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-34.0 63.0 73.0 80.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-34.0 63.0 73.0 69.0 -24.0 -3.0 -3.0 19.0 29.0 8.0 30.0 32.0 42.0 50.0 50.0 114.0)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-34.0 63.0 73.0 69.0 -32.0 4.0 -20.0 28.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    sleep 5.0				     
+#echo "ctpq time 1.5 off 0 pos (-25.0 23.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 25.0 29.0 -24.0 -3.0 -3.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 29.0 -24.0 -3.0 -3.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 -24.0 -3.0 -3.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 -3.0 -3.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -3.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -20.0 19.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -20.0 28.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rp
+    #echo "ctpq time 0.5 off 0 pos (-34.0 63.0 73.0 69.0 32.0 4.0 -20.0 28.0 28.0 48.0 85.0 10.0 14.0 16.0 160.0 200.0)" | yarp rpc /ctpservice/right_arm/rpc
+}
+
 tiltHead() {
     echo "ctpq time 1.5 off 0 pos (0.0 15.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    echo "ctpq time 1.5 off 0 pos (0.0 0.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    #echo "ctpq time 0.5 off 0 pos (0.0 5.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    #echo "ctpq time 0.5 off 0 pos (0.0 0.0  -5.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+    #echo "ctpq time 0.5 off 0 pos (0.0 0.0   5.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
+}
+
+tiltHead_robotic() {
+    echo "ctpq time 1.0 off 0 pos (0.0 7.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc    
+    echo "ctpq time 1.0 off 0 pos (0.0 15.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
     echo "ctpq time 1.5 off 0 pos (0.0 0.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
     #echo "ctpq time 0.5 off 0 pos (0.0 5.0  0.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
     #echo "ctpq time 0.5 off 0 pos (0.0 0.0  -5.0 0.0 0.0 5.0)" | yarp rpc /ctpservice/head/rpc
@@ -461,43 +520,52 @@ getReadyToPlay_beeping() {
 #######################################################################################
 
 reachA() {
-    echo "reach A"
-    echo "-0.35 -0.02 0.09" | yarp write ... /iKinGazeCtrl/xd:i
+    echo "reach A"			
+    echo "-0.30 0.17 0.0" | yarp write ... /iKinGazeCtrl/xd:i
     sleep 1.0
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
-    sleep 2.0
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
-    sleep 2.0
-    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    echo "ctpq time 1.5 off 0 pos (-16.0 49.0 34.0 62.0 37.0 -1.0 13.0 40.0 28.0 7.0 7.0 18.0 41.0 11.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc
 }
 
 reachA_noHead() {
     echo "reachA_noHead"
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    echo "ctpq time 1.5 off 0 pos (-16.0 49.0 34.0 62.0 37.0 -1.0 13.0 40.0 28.0 7.0 7.0 18.0 41.0 11.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc
     sleep 2.0
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
-    sleep 2.0
-    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
 }
 
 reachB() {
     echo "reach B"
-    echo "-0.35 -0.02 0.09" | yarp write ... /iKinGazeCtrl/xd:i
-    sleep 1.0
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
-    sleep 2.0
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
-    sleep 2.0
-    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    echo "ctpq time 1.5 off 0 pos (-30.0 0.0 -13.0 -9.0 0.0 10.0)" | yarp rpc /ctpservice/head/rpc
+    sleep 1.5
+    echo "ctpq time 1.5 off 0 pos (-48.0 20.0 30.0 30.0 48.0 -10.0 8.0 45.0 29.0 8.0 8.0 24.0 45.0 17.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc    
+    sleep 1.5		   
+}
+
+reachA_lookB() {
+    echo "ctpq time 1.5 off 0 pos (-30.0 0.0 -13.0 -9.0 0.0 10.0)" | yarp rpc /ctpservice/head/rpc
+    sleep 1.5
+    echo "ctpq time 1.5 off 0 pos (-16.0 49.0 34.0 62.0 37.0 -1.0 13.0 40.0 28.0 7.0 7.0 18.0 41.0 11.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc	  
+    sleep 1.5	
+}
+
+reachB_lookA() {
+    echo "-0.32 0.15 0.0" | yarp write ... /iKinGazeCtrl/xd:i    
+    sleep 1.5
+    echo "ctpq time 1.5 off 0 pos (-48.0 20.0 30.0 30.0 48.0 -10.0 8.0 45.0 29.0 8.0 8.0 24.0 45.0 17.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc    
+    sleep 1.5		
+}
+
+reachB_lookaway() {
+    echo "ctpq time 1.5 off 0 pos (-30.0 0.0 13.0 -9.0 0.0 10.0)" | yarp rpc /ctpservice/head/rpc
+    sleep 1.5
+    echo "ctpq time 1.5 off 0 pos (-48.0 20.0 30.0 30.0 48.0 -10.0 8.0 45.0 29.0 8.0 8.0 24.0 45.0 17.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc    
+    sleep 1.5		
 }
 
 reachB_noHead() {
     echo "reachB_noHead"
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    echo "ctpq time 1.5 off 0 pos (-48.0 20.0 30.0 30.0 48.0 -10.0 8.0 45.0 29.0 8.0 8.0 24.0 45.0 17.0 0.0 0.0)" | yarp rpc /ctpservice/right_arm/rpc
     sleep 2.0
-    echo "-0.30 -0.09 0.12 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
-    sleep 2.0
-    echo "-0.35 -0.02 0.09 -0.039 0.60 -0.79 2.85" | yarp write ... /armCtrl/left_arm/xd:i
+    
 }
 
 reachC() {
@@ -1493,6 +1561,24 @@ reachD_noHead() {
         sleep 6.0 && smile
     }
 
+    exercise_robotic() {
+        go_home_withtable
+        sleep 3.0 && waving_robotic
+        sleep 1.0 && ciao
+        sleep 1.0 && smile
+        sleep 1.0 && introduceExercise
+        sleep 1.0 && go_home_withtable
+        sleep 1.0 && tiltHead_robotic
+        sleep 3.0 && smile
+        sleep 3.0 && explainExercise
+        sleep 0.5 && reachRisma_robotic       
+        sleep 3.0 && go_home_withtable
+        echo "[info] smile"
+        smile
+        sleep 3.0 && getReadyToPlay
+        sleep 6.0 && smile
+    }
+
     exercise_onlyEyes() {
         go_home_withtable
         blockNeck
@@ -1518,6 +1604,7 @@ reachD_noHead() {
         sleep 1.0 && ciao_beeping
         sleep 1.0 && smile
         sleep 1.0 && introduceExercise_beeping
+	sleep 1.0 && go_home_withtable
         sleep 1.0 && tiltHead
         sleep 3.0 && smile
         sleep 3.0 && explainExercise_beeping
