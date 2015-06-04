@@ -67,7 +67,6 @@ if (ENABLE_CUDA)
 endif (ENABLE_CUDA)
 
 add_subdirectory(app)
-add_subdirectory(src)
 
 #icubcontrib_finalize_export(attentionLib) #macro added 13/11/2013
 icubcontrib_finalize_export(sequentialInteraction)
